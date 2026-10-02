@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import difflib
 from collections import defaultdict
 
 import numpy as np
@@ -13,6 +12,26 @@ from datasi.statistics import strings as st
 from datasi.statistics.descriptive import entropy_bits, normalized_entropy
 
 MAX_LABELS_FOR_FUZZY = 150
+
+
+def osa_distance(a: str, b: str, cap: int) -> int:
+    """Optimal string alignment distance (edits incl. adjacent transpositions), stopping
+    early once every alignment exceeds ``cap``."""
+    prev2: list[int] = []
+    prev = list(range(len(b) + 1))
+    for i in range(1, len(a) + 1):
+        cur = [i] + [0] * len(b)
+        for j in range(1, len(b) + 1):
+            cost = 0 if a[i - 1] == b[j - 1] else 1
+            cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost)
+            if i > 1 and j > 1 and a[i - 1] == b[j - 2] and a[i - 2] == b[j - 1]:
+                cur[j] = min(cur[j], prev2[j - 2] + 1)
+        if min(cur) > cap:
+            return cap + 1
+        prev2, prev = prev, cur
+    return prev[-1]
+
+
 PLACEHOLDERS = frozenset(
     {
         "n/a",
@@ -49,9 +68,9 @@ class CategoricalDetector(BaseDetector):
         "intended to be the same category. Fuzzy matches are only suggestions."
     )
     limitations = (
-        "Fuzzy matching uses character similarity (difflib ratio >= 0.88) on the most "
-        "frequent labels; it cannot know that 'UA' means 'United Airlines', and may pair "
-        "genuinely different short labels."
+        "Fuzzy matching uses edit distance (1 edit, or 2 for labels of 10+ characters, "
+        "counting transpositions) on the most frequent labels; it cannot know that 'UA' "
+        "means 'United Airlines', and may pair genuinely different short labels."
     )
 
     def analyze(self, ctx: Context) -> list[Finding]:
@@ -128,11 +147,14 @@ class CategoricalDetector(BaseDetector):
             kinds = set()
             for g in variant_groups:
                 raw = [x for x, _ in g]
-                if len({x.strip() for x in raw}) < len(raw):
+                stripped = {" ".join(x.split()) for x in raw}
+                if any(x != " ".join(x.split()) for x in raw):
                     kinds.add("whitespace")
-                if len({x.lower() for x in raw}) < len(raw):
+                if len({x.lower() for x in stripped}) < len(stripped):
                     kinds.add("case")
-                if len({x.strip().lower() for x in raw}) == len(raw):
+                if len({st.normalize_label(x) for x in stripped}) < len(
+                    {x.lower() for x in stripped}
+                ):
                     kinds.add("punctuation/separators")
             rows = sum(sum(n for _, n in g) - max(n for _, n in g) for g in variant_groups)
             out.append(
@@ -171,22 +193,23 @@ class CategoricalDetector(BaseDetector):
         for i, (k, _n, _g) in enumerate(reps):
             for j in range(i + 1, len(reps)):
                 k2 = reps[j][0]
-                if abs(len(k) - len(k2)) > max(3, 0.3 * max(len(k), len(k2))):
+                longest = max(len(k), len(k2))
+                allowed = 2 if longest >= 10 else 1
+                if abs(len(k) - len(k2)) > allowed or min(len(k), len(k2)) < 5:
                     continue
-                if min(len(k), len(k2)) < 4 or any(ch.isdigit() for ch in k + k2):
+                if any(ch.isdigit() for ch in k + k2):
                     continue  # 'Route 12' vs 'Route 13' are different things
-                ratio = difflib.SequenceMatcher(None, k, k2).ratio()
-                if ratio >= 0.88:
-                    pairs.append((reps[i], reps[j], ratio))
-        if not pairs:
-            # Token extension: 'united' vs 'united airlines'
-            head = reps[:100]
-            for i, (k, n, _g) in enumerate(head):
-                for j, (k2, n2, _g2) in enumerate(head):
-                    if i == j or len(k) < 4:
-                        continue
-                    if k2.startswith(k + " ") and n2 < n and len(k2.split()) == len(k.split()) + 1:
-                        pairs.append((reps[i], reps[j], 0.6))
+                d = osa_distance(k, k2, allowed)
+                if d <= allowed:
+                    pairs.append((reps[i], reps[j], 1 - d / longest))
+        # Token extension: 'united' vs 'united airlines'
+        head = reps[:100]
+        for i, (k, n, _g) in enumerate(head):
+            for j, (k2, n2, _g2) in enumerate(head):
+                if i == j or len(k) < 4:
+                    continue
+                if k2.startswith(k + " ") and n2 < n and len(k2.split()) == len(k.split()) + 1:
+                    pairs.append((reps[i], reps[j], 0.6))
         if pairs:
             pairs.sort(key=lambda p: -p[2])
             shown = [
@@ -208,7 +231,7 @@ class CategoricalDetector(BaseDetector):
                     f"'{shown[0]['a']}' and '{shown[0]['b']}'.",
                     columns=[col],
                     evidence={"pairs": shown},
-                    rule="difflib similarity >= 0.88 between normalised labels (or one label extending another by one word).",
+                    rule="Normalised labels within 1 edit (2 for 10+ characters), or one label extending another by one word -> info.",
                     interpretation="These may be spelling variants of one category, or genuinely distinct categories.",
                     suggestion="Review the pairs; map confirmed variants to one label.",
                     confidence=float(np.mean([p[2] for p in pairs[:10]])) * 0.6,
