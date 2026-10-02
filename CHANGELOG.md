@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-02
+
+First public release.
+
 ### Added
 
 - `inspect()` / `investigate()` pipeline over pandas, CSV/TSV (incl. gzip), Parquet,
