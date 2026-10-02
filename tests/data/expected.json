@@ -1,0 +1,32 @@
+{
+  "dataset_missing.csv": [
+    "missing.high",
+    "missing.by_group",
+    "missing.over_time"
+  ],
+  "dataset_duplicates.csv": [
+    "duplicates.exact",
+    "duplicates.key"
+  ],
+  "dataset_outliers.csv": [
+    "outliers.univariate",
+    "numeric.sentinel"
+  ],
+  "dataset_temporal.csv": [
+    "temporal.volume_shift",
+    "temporal.distribution_shift",
+    "temporal.new_category",
+    "temporal.vanished_category"
+  ],
+  "dataset_types.csv": [
+    "types.numeric_text",
+    "types.date_formats",
+    "types.boolean_text",
+    "categorical.variants",
+    "strings.placeholder"
+  ],
+  "compare:dataset_drift_train.csv:dataset_drift_test.csv": [
+    "drift.numeric",
+    "drift.categorical"
+  ]
+}

@@ -1,4 +1,4 @@
-/* DataSI offline report renderer. Uses DOM APIs only (no innerHTML with data). */
+/* DataSI offline report renderer. Data is only ever inserted as text nodes. */
 (function () {
   "use strict";
   var DATA = JSON.parse(document.getElementById("datasi-data").textContent);
