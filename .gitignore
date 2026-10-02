@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+coverage.xml
+htmlcov/
+
+# Generated reports may contain summaries of private data
+datasi-report*.html
+datasi-report*.json
+datasi-report*.md
+/reports/
+
+# Secrets / local config
+.env
+.env.*
+
+# Node / web
+node_modules/
+web/dist/
+src/datasi/server/static/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
