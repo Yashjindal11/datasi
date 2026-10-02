@@ -130,6 +130,7 @@ class DriftDetector(BaseDetector):
                 ColumnType.TEXT,
                 ColumnType.CONSTANT,
                 ColumnType.UNKNOWN,
+                ColumnType.DATETIME,  # time ranges differ by design in temporal splits
             ):
                 row["kind"] = "skipped"
                 rows.append(row)
