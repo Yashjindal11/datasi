@@ -1,0 +1,28 @@
+# Example DataSI configuration. Validate with: datasi config validate examples/datasi.yaml
+detectors:
+  correlation: true
+  outliers: true
+
+thresholds:
+  missing_warning: 0.05
+  duplicate_high: 0.02
+  correlation_warning: 0.85
+
+outlier_methods: [iqr, modified_zscore, isolation_forest]
+
+target: churned
+time_column: order_ts
+
+rules:
+  age: {min: 18, max: 110}
+  quantity: {min: 1}
+  channel: {allowed: [web, store, phone]}
+
+privacy:
+  include_examples: false
+  redact_labels: false
+
+performance:
+  sample_rows: 100000
+
+reference_time: "2026-10-01T00:00:00"
