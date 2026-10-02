@@ -1,0 +1,98 @@
+{
+  "benchmark": "inspect() on generate_dataset(...) with all default detectors and a target",
+  "date": "2026-10-02",
+  "machine": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "arm",
+    "cpu_count": 10,
+    "python": "3.12.15"
+  },
+  "versions": {
+    "datasi": "0.1.0.dev0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3"
+  },
+  "results": [
+    {
+      "rows": 10100,
+      "columns": 14,
+      "frame_mb": 1.148156,
+      "seconds": 0.6612571669975296,
+      "peak_rss_mb": 196.984832,
+      "rss_before_inspect_mb": 187.662336,
+      "findings": 25,
+      "detector_seconds": {
+        "categorical": 0.0053,
+        "strings": 0.0037,
+        "duplicates": 0.0189,
+        "missingness": 0.136,
+        "numeric": 0.0243,
+        "outliers": 0.0116,
+        "correlation": 0.2231,
+        "redundancy": 0.0539,
+        "rules": 0.0,
+        "schema": 0.0,
+        "constant": 0.0049,
+        "identifier": 0.0001,
+        "target": 0.1366,
+        "datetime": 0.0083,
+        "temporal": 0.0195,
+        "types": 0.0005
+      }
+    },
+    {
+      "rows": 101000,
+      "columns": 14,
+      "frame_mb": 11.480538,
+      "seconds": 2.994844207991264,
+      "peak_rss_mb": 302.809088,
+      "rss_before_inspect_mb": 230.227968,
+      "findings": 25,
+      "detector_seconds": {
+        "categorical": 0.0105,
+        "strings": 0.0038,
+        "duplicates": 0.0867,
+        "missingness": 0.5447,
+        "numeric": 0.1481,
+        "outliers": 0.0818,
+        "correlation": 1.1486,
+        "redundancy": 0.0914,
+        "rules": 0.0,
+        "schema": 0.0,
+        "constant": 0.0186,
+        "identifier": 0.0001,
+        "target": 0.7138,
+        "datetime": 0.0384,
+        "temporal": 0.0553,
+        "types": 0.0005
+      }
+    },
+    {
+      "rows": 1010000,
+      "columns": 14,
+      "frame_mb": 114.797834,
+      "seconds": 11.290163041994674,
+      "peak_rss_mb": 1034.764288,
+      "rss_before_inspect_mb": 751.616,
+      "findings": 28,
+      "detector_seconds": {
+        "categorical": 0.0606,
+        "strings": 0.0039,
+        "duplicates": 0.9179,
+        "missingness": 2.7007,
+        "numeric": 1.2892,
+        "outliers": 0.7745,
+        "correlation": 2.143,
+        "redundancy": 0.496,
+        "rules": 0.0,
+        "schema": 0.0001,
+        "constant": 0.1943,
+        "identifier": 0.0001,
+        "target": 1.4853,
+        "datetime": 0.3821,
+        "temporal": 0.4064,
+        "types": 0.0007
+      }
+    }
+  ]
+}
