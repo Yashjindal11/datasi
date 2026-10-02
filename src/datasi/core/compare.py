@@ -300,6 +300,7 @@ def domain_classifier_auc(ref: Dataset, cur: Dataset, schema: Schema, seed: int)
     """Cross-validated AUC of a model predicting 'is current' (adversarial validation)."""
     from sklearn.ensemble import HistGradientBoostingClassifier
     from sklearn.model_selection import cross_val_score
+    from threadpoolctl import threadpool_limits
 
     cols = [
         c
@@ -338,7 +339,9 @@ def domain_classifier_auc(ref: Dataset, cur: Dataset, schema: Schema, seed: int)
     model = HistGradientBoostingClassifier(
         max_iter=100, categorical_features=np.array(cat_mask), random_state=seed
     )
-    scores = cross_val_score(model, x, y, cv=3, scoring="roc_auc")
+    # Many OpenMP threads on small data is ~15x slower (oversubscription on macOS).
+    with threadpool_limits(limits=2):
+        scores = cross_val_score(model, x, y, cv=3, scoring="roc_auc")
     return float(np.mean(scores))
 
 
