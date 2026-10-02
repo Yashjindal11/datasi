@@ -43,9 +43,12 @@ def numeric_psi(reference: pd.Series, current: pd.Series, bins: int = 10) -> flo
     edges = np.unique(np.quantile(ref, np.linspace(0, 1, bins + 1)))
     if edges.size < 2:
         return None
-    edges[0], edges[-1] = -np.inf, np.inf
-    e = np.histogram(ref, edges)[0] / ref.size
-    a = np.histogram(cur, edges)[0] / cur.size
+    # Open-ended outer bins; a mass point at the minimum keeps its own bin.
+    edges = np.r_[-np.inf, edges[:-1], np.inf]
+    inner = edges[1:-1]
+    k = edges.size - 1
+    e = np.bincount(np.digitize(ref, inner, right=True), minlength=k) / ref.size
+    a = np.bincount(np.digitize(cur, inner, right=True), minlength=k) / cur.size
     return psi_from_proportions(e, a)
 
 

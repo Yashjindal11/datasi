@@ -29,6 +29,7 @@ KNOWN_DETECTORS: tuple[str, ...] = (
     "correlation",
     "redundancy",
     "target",
+    "rules",
 )
 
 OutlierMethod = Literal["iqr", "zscore", "modified_zscore", "isolation_forest"]
@@ -42,7 +43,6 @@ class Thresholds(_Strict):
     # Missingness (fraction of rows)
     missing_warning: float = Field(0.10, ge=0, le=1)
     missing_high: float = Field(0.50, ge=0, le=1)
-    missing_critical: float = Field(1.0, ge=0, le=1)
     missing_group_min_gap: float = Field(
         0.20, ge=0, le=1, description="Absolute gap between a group's missing rate and the rest."
     )
@@ -112,7 +112,6 @@ class Thresholds(_Strict):
     def _ordered(self) -> Thresholds:
         pairs = [
             ("missing_warning", "missing_high"),
-            ("missing_high", "missing_critical"),
             ("duplicate_warning", "duplicate_high"),
             ("iqr_k", "iqr_extreme_k"),
             ("correlation_warning", "correlation_high"),

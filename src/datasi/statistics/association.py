@@ -68,17 +68,24 @@ def normalized_mutual_information(x: pd.Series, y: pd.Series) -> float | None:
     Plug-in MI is biased upward for high-cardinality variables, which is why
     identifier-like columns are excluded before calling this.
     """
-    from sklearn.metrics import normalized_mutual_info_score
-
     dx, dy = discretize(x), discretize(y)
-    ok = dx.notna() & dy.notna()
-    if ok.sum() < 10 or dx[ok].nunique() < 2 or dy[ok].nunique() < 2:
+    ok = (dx.notna() & dy.notna()).to_numpy()
+    if ok.sum() < 10:
         return None
-    return float(
-        normalized_mutual_info_score(
-            dx[ok].astype(str), dy[ok].astype(str), average_method="geometric"
-        )
-    )
+    cx, ux = pd.factorize(dx[ok])
+    cy, uy = pd.factorize(dy[ok])
+    if len(ux) < 2 or len(uy) < 2:
+        return None
+    joint = np.bincount(cx * len(uy) + cy, minlength=len(ux) * len(uy)).reshape(len(ux), len(uy))
+    p = joint / joint.sum()
+    px, py = p.sum(axis=1), p.sum(axis=0)
+    nz = p > 0
+    mi = float((p[nz] * np.log(p[nz] / np.outer(px, py)[nz])).sum())
+    hx = float(-(px[px > 0] * np.log(px[px > 0])).sum())
+    hy = float(-(py[py > 0] * np.log(py[py > 0])).sum())
+    if hx == 0 or hy == 0:
+        return None
+    return float(np.clip(mi / np.sqrt(hx * hy), 0.0, 1.0))
 
 
 def phi_coefficient(a: np.ndarray, b: np.ndarray) -> float | None:

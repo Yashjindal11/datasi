@@ -81,6 +81,20 @@ class ParseResult:
     kinds: dict[str, int]  # rows per kind
 
 
+def number_kind(raw: str) -> str | None:
+    """'plain' | 'thousands' | 'currency' | 'percent' for numeric-looking text, else None."""
+    v = raw.strip()
+    if _PLAIN_NUMBER_RE.match(v):
+        return "plain"
+    if _THOUSANDS_NUMBER_RE.match(v):
+        return "thousands"
+    if _CURRENCY_RE.match(v):
+        return "currency"
+    if _PERCENT_RE.match(v):
+        return "percent"
+    return None
+
+
 def numeric_parse(counts: pd.Series) -> ParseResult:
     """How many values look like numbers, and in which textual convention."""
     total = int(counts.sum())
@@ -88,16 +102,8 @@ def numeric_parse(counts: pd.Series) -> ParseResult:
         return ParseResult(0.0, "none", {})
     kinds: dict[str, int] = {}
     for raw, n in counts.items():
-        v = str(raw).strip()
-        if _PLAIN_NUMBER_RE.match(v):
-            k = "plain"
-        elif _THOUSANDS_NUMBER_RE.match(v):
-            k = "thousands"
-        elif _CURRENCY_RE.match(v):
-            k = "currency"
-        elif _PERCENT_RE.match(v):
-            k = "percent"
-        else:
+        k = number_kind(str(raw))
+        if k is None:
             continue
         kinds[k] = kinds.get(k, 0) + int(n)
     parsed = sum(kinds.values())
