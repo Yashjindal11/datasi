@@ -221,6 +221,25 @@ class NumericDetector(BaseDetector):
         return out
 
 
+def _size_adjusted(scored: pd.Series, n: int) -> tuple[np.ndarray, float]:
+    """Values beyond a robust z threshold that grows with n (Bonferroni under normality).
+
+    Larger samples contain more extreme values by chance; a fixed cut-off (e.g. 3x IQR)
+    therefore flags something in almost every large dataset. k_n is the |z| that a normal
+    sample of size n exceeds anywhere with probability 1%.
+    """
+    k_n = float(sps.norm.isf(0.005 / max(n, 1)))
+    arr = pd.to_numeric(scored, errors="coerce").to_numpy(dtype=float)
+    ok = np.isfinite(arr)
+    med = float(np.median(arr[ok]))
+    mad = float(np.median(np.abs(arr[ok] - med)))
+    if mad == 0:
+        return np.zeros(arr.size, dtype=bool), k_n
+    z = np.zeros_like(arr)
+    z[ok] = 0.6745 * (arr[ok] - med) / mad
+    return ok & (np.abs(z) > k_n), k_n
+
+
 @register_detector
 class OutlierDetector(BaseDetector):
     name = "outliers"
@@ -228,15 +247,17 @@ class OutlierDetector(BaseDetector):
     description = (
         "Statistical outliers per numeric column with the configured methods (IQR, "
         "z-score, modified z-score, isolation forest) and multivariate outliers with an "
-        "isolation forest when enabled."
+        "isolation forest when enabled. Positive right-skewed columns are scored on the "
+        "log scale; severity uses a sample-size-adjusted robust threshold."
     )
     assumptions = (
         "See each method's assumptions: z-score assumes near-normality; IQR and modified "
-        "z-score are robust; isolation forest assumes anomalies are few and different."
+        "z-score are robust; isolation forest assumes anomalies are few and different. "
+        "The warning threshold assumes the (possibly log-transformed) bulk is roughly normal."
     )
     limitations = (
-        "A statistical outlier is not a data error. Skewed columns produce many IQR "
-        "outliers by construction. Only domain rules can confirm invalid values."
+        "A statistical outlier is not a data error. Heavy-tailed columns still produce "
+        "info-level findings by construction. Only domain rules can confirm invalid values."
     )
 
     def analyze(self, ctx: Context) -> list[Finding]:
@@ -251,9 +272,9 @@ class OutlierDetector(BaseDetector):
             n = int(finite.size)
             if n < 20 or not uni:
                 continue
-            # Right-skewed positive data (amounts, durations) is scored on the log scale so
-            # its natural long tail is not reported as anomalous.
-            log_scale = bool(finite.min() > 0 and float(sps.skew(finite)) >= 1.0)
+            # Right-skewed positive data (amounts, durations, counts) is scored on the log
+            # scale so its natural long tail is not reported as anomalous.
+            log_scale = bool(finite.min() > 0 and float(sps.skew(finite)) >= 0.5)
             scored = np.log(values.where(values > 0)) if log_scale else values
             masks: dict[str, np.ndarray] = {
                 m: ol.outlier_mask(
@@ -267,6 +288,7 @@ class OutlierDetector(BaseDetector):
                 continue
             all_mask = stacked.all(axis=0)
             extreme = ol.iqr_mask(scored, t.iqr_extreme_k)
+            severe, k_n = _size_adjusted(scored, n)
             share = float(any_mask.sum() / n)
             flagged = values[any_mask]
             bounds = ol.iqr_bounds(scored, t.iqr_k)
@@ -274,7 +296,7 @@ class OutlierDetector(BaseDetector):
                 bounds = (float(np.exp(bounds[0])), float(np.exp(bounds[1])))
             sev = (
                 Severity.WARNING
-                if extreme.any() and share < t.outlier_warning_ratio
+                if severe.any() and share < t.outlier_warning_ratio
                 else Severity.INFO
             )
             ctx.profile(col)["outliers"] = {m: int(v.sum()) for m, v in masks.items()}
@@ -293,16 +315,20 @@ class OutlierDetector(BaseDetector):
                         "per_method": {m: int(v.sum()) for m, v in masks.items()},
                         "flagged_by_all": int(all_mask.sum()),
                         "extreme": int(extreme.sum()),
+                        "beyond_size_adjusted_threshold": int(severe.sum()),
+                        "size_adjusted_robust_z": k_n,
                         "share": share,
                         "iqr_bounds": list(bounds) if bounds else None,
                         "flagged_min": float(flagged.min()),
                         "flagged_max": float(flagged.max()),
-                        "row_examples": ctx.row_examples(extreme if extreme.any() else any_mask),
+                        "row_examples": ctx.row_examples(severe if severe.any() else any_mask),
                     },
                     rule=(
-                        f"Extreme values (beyond {t.iqr_extreme_k}x IQR) in a column where fewer than "
-                        f"outlier_warning_ratio ({t.outlier_warning_ratio}) of values are flagged -> "
-                        "warning (isolated anomalies); otherwise info (tail behaviour)."
+                        "Warning when some value lies beyond the sample-size-adjusted robust "
+                        f"threshold |0.6745 (x - median) / MAD| > {k_n:.2f} (a value that extreme "
+                        "would appear by chance in fewer than 1% of normal samples of this size) "
+                        f"and fewer than outlier_warning_ratio ({t.outlier_warning_ratio}) of "
+                        "values are flagged; otherwise info (tail behaviour)."
                     ),
                     interpretation=(
                         "These are statistical outliers, not confirmed errors. Isolated extreme "
