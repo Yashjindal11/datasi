@@ -44,7 +44,9 @@ ISSUE_CODES: dict[str, frozenset[str]] = {
 }
 DATASET_LEVEL = frozenset({"duplicates"})
 # For multi-column issues the first column is the one that 'has' the issue.
-_PRIMARY_ONLY = frozenset({"missing_group", "missing_temporal", "sum"})
+_PRIMARY_ONLY = frozenset({"missing_group", "missing_temporal", "sum", "leakage"})
+# Injected issues that also make another kind true (structured missingness is missingness).
+IMPLIES: dict[str, tuple[str, ...]] = {"missing": ("missing_group", "missing_temporal")}
 
 
 @dataclass(frozen=True)
@@ -119,6 +121,9 @@ def evaluate_findings(
         actual: set[str] = set()
         for issue in truth.of_kind(kind):
             actual |= _units(kind, issue.columns)
+        for implied in IMPLIES.get(kind, ()):
+            for issue in truth.of_kind(implied):
+                actual |= _units(implied, issue.columns)
         predicted: set[str] = set()
         for f in findings:
             if f.code in codes and f.severity.rank >= min_severity.rank:
