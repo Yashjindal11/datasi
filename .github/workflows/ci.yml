@@ -93,7 +93,7 @@ jobs:
           cd /tmp && /tmp/clean/bin/datasi --version
           /tmp/clean/bin/python -c "import datasi.server, pathlib; assert (pathlib.Path(datasi.server.__file__).parent / 'static' / 'index.html').is_file()"
           /tmp/clean/bin/python -c "import pandas as pd, datasi; r = datasi.inspect(pd.DataFrame({'a': [1, 2, 2, None]})); print(r.summary)"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
