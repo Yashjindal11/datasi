@@ -1,0 +1,1203 @@
+{
+  "quick": false,
+  "date": "2026-10-02",
+  "versions": {
+    "datasi": "0.1.0.dev0",
+    "python": "3.12.15"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "experiments": {
+    "E1": {
+      "params": {
+        "seeds": 20,
+        "rows": 5000,
+        "issues": {
+          "missingness": 0.15,
+          "duplicates": 0.03,
+          "outliers": 0.01,
+          "category_variants": 0.02,
+          "numeric_as_text": true,
+          "constant_column": true,
+          "redundant_columns": true,
+          "sentinels": 0.005,
+          "placeholders": 0.01,
+          "missing_after": 0.2,
+          "missing_by_group": 0.7,
+          "leakage": true
+        }
+      },
+      "any_severity": [
+        {
+          "issue": "category_variants",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "constant",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "duplicates",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": NaN,
+          "fnr": 0.0
+        },
+        {
+          "issue": "leakage",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing",
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 240,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing_group",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing_temporal",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "numeric_as_text",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "outliers",
+          "tp": 40,
+          "fp": 48,
+          "fn": 0,
+          "tn": 252,
+          "precision": 0.45454545454545453,
+          "recall": 1.0,
+          "fpr": 0.16,
+          "fnr": 0.0
+        },
+        {
+          "issue": "placeholder",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "redundant",
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 300,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "sentinel",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "sum",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        }
+      ],
+      "warning_or_worse": [
+        {
+          "issue": "category_variants",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "constant",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "duplicates",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": NaN,
+          "fnr": 0.0
+        },
+        {
+          "issue": "leakage",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing",
+          "tp": 100,
+          "fp": 0,
+          "fn": 0,
+          "tn": 240,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing_group",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "missing_temporal",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "numeric_as_text",
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "tn": 320,
+          "precision": NaN,
+          "recall": 0.0,
+          "fpr": 0.0,
+          "fnr": 1.0
+        },
+        {
+          "issue": "outliers",
+          "tp": 40,
+          "fp": 1,
+          "fn": 0,
+          "tn": 299,
+          "precision": 0.975609756097561,
+          "recall": 1.0,
+          "fpr": 0.0033333333333333335,
+          "fnr": 0.0
+        },
+        {
+          "issue": "placeholder",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "redundant",
+          "tp": 40,
+          "fp": 0,
+          "fn": 0,
+          "tn": 300,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "sentinel",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "issue": "sum",
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "tn": 320,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        }
+      ],
+      "seconds": 17.6
+    },
+    "E2": {
+      "params": {
+        "seeds": 10,
+        "sizes": [
+          1000,
+          10000,
+          100000
+        ]
+      },
+      "results": [
+        {
+          "rows": 1000,
+          "datasets": 10,
+          "warning_per_dataset": {
+            "outliers.univariate": 0.1
+          },
+          "info_per_dataset": {
+            "outliers.univariate": 1.9,
+            "temporal.volume_spike": 0.1
+          }
+        },
+        {
+          "rows": 10000,
+          "datasets": 10,
+          "warning_per_dataset": {},
+          "info_per_dataset": {
+            "outliers.univariate": 2.2
+          }
+        },
+        {
+          "rows": 100000,
+          "datasets": 10,
+          "warning_per_dataset": {},
+          "info_per_dataset": {
+            "outliers.univariate": 2.9
+          }
+        }
+      ],
+      "seconds": 17.5
+    },
+    "E3": {
+      "params": {
+        "seeds": 10,
+        "rows": 10000,
+        "outlier_rate": 0.01
+      },
+      "results": [
+        {
+          "column": "amount",
+          "method": "iqr",
+          "threshold": {
+            "iqr_k": 1.5
+          },
+          "tp": 1000,
+          "fp": 2767,
+          "fn": 0,
+          "tn": 96233,
+          "precision": 0.2654632333421821,
+          "recall": 1.0,
+          "fpr": 0.02794949494949495,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "iqr",
+          "threshold": {
+            "iqr_k": 3.0
+          },
+          "tp": 1000,
+          "fp": 324,
+          "fn": 0,
+          "tn": 98676,
+          "precision": 0.7552870090634441,
+          "recall": 1.0,
+          "fpr": 0.0032727272727272726,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "zscore",
+          "threshold": {
+            "zscore": 3.0
+          },
+          "tp": 1000,
+          "fp": 151,
+          "fn": 0,
+          "tn": 98849,
+          "precision": 0.8688097306689835,
+          "recall": 1.0,
+          "fpr": 0.0015252525252525252,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "zscore",
+          "threshold": {
+            "zscore": 4.0
+          },
+          "tp": 1000,
+          "fp": 32,
+          "fn": 0,
+          "tn": 98968,
+          "precision": 0.9689922480620154,
+          "recall": 1.0,
+          "fpr": 0.00032323232323232324,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "modified_zscore",
+          "threshold": {
+            "modified_zscore": 3.5
+          },
+          "tp": 1000,
+          "fp": 1471,
+          "fn": 0,
+          "tn": 97529,
+          "precision": 0.4046944556859571,
+          "recall": 1.0,
+          "fpr": 0.01485858585858586,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "modified_zscore",
+          "threshold": {
+            "modified_zscore": 5.0
+          },
+          "tp": 1000,
+          "fp": 314,
+          "fn": 0,
+          "tn": 98686,
+          "precision": 0.76103500761035,
+          "recall": 1.0,
+          "fpr": 0.003171717171717172,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "isolation_forest",
+          "threshold": {
+            "contamination": "auto"
+          },
+          "tp": 1000,
+          "fp": 12908,
+          "fn": 0,
+          "tn": 86092,
+          "precision": 0.0719010641357492,
+          "recall": 1.0,
+          "fpr": 0.13038383838383838,
+          "fnr": 0.0
+        },
+        {
+          "column": "amount",
+          "method": "isolation_forest",
+          "threshold": {
+            "contamination": 0.01
+          },
+          "tp": 980,
+          "fp": 15,
+          "fn": 20,
+          "tn": 98985,
+          "precision": 0.9849246231155779,
+          "recall": 0.98,
+          "fpr": 0.00015151515151515152,
+          "fnr": 0.02
+        },
+        {
+          "column": "age",
+          "method": "iqr",
+          "threshold": {
+            "iqr_k": 1.5
+          },
+          "tp": 1000,
+          "fp": 314,
+          "fn": 0,
+          "tn": 98686,
+          "precision": 0.76103500761035,
+          "recall": 1.0,
+          "fpr": 0.003171717171717172,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "iqr",
+          "threshold": {
+            "iqr_k": 3.0
+          },
+          "tp": 1000,
+          "fp": 0,
+          "fn": 0,
+          "tn": 99000,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "zscore",
+          "threshold": {
+            "zscore": 3.0
+          },
+          "tp": 1000,
+          "fp": 0,
+          "fn": 0,
+          "tn": 99000,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "zscore",
+          "threshold": {
+            "zscore": 4.0
+          },
+          "tp": 1000,
+          "fp": 0,
+          "fn": 0,
+          "tn": 99000,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "modified_zscore",
+          "threshold": {
+            "modified_zscore": 3.5
+          },
+          "tp": 1000,
+          "fp": 26,
+          "fn": 0,
+          "tn": 98974,
+          "precision": 0.9746588693957114,
+          "recall": 1.0,
+          "fpr": 0.0002626262626262626,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "modified_zscore",
+          "threshold": {
+            "modified_zscore": 5.0
+          },
+          "tp": 1000,
+          "fp": 0,
+          "fn": 0,
+          "tn": 99000,
+          "precision": 1.0,
+          "recall": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "isolation_forest",
+          "threshold": {
+            "contamination": "auto"
+          },
+          "tp": 1000,
+          "fp": 16227,
+          "fn": 0,
+          "tn": 82773,
+          "precision": 0.05804841237592152,
+          "recall": 1.0,
+          "fpr": 0.16390909090909092,
+          "fnr": 0.0
+        },
+        {
+          "column": "age",
+          "method": "isolation_forest",
+          "threshold": {
+            "contamination": 0.01
+          },
+          "tp": 939,
+          "fp": 51,
+          "fn": 61,
+          "tn": 98949,
+          "precision": 0.9484848484848485,
+          "recall": 0.939,
+          "fpr": 0.0005151515151515151,
+          "fnr": 0.061
+        }
+      ],
+      "seconds": 8.7
+    },
+    "E4": {
+      "params": {
+        "seeds": 3,
+        "rows": 200000,
+        "caps": [
+          2000,
+          10000,
+          50000,
+          200000
+        ]
+      },
+      "results": [
+        {
+          "sample_rows": 2000,
+          "mean_seconds": 1.4600609030021587,
+          "metrics": [
+            {
+              "issue": "leakage",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "redundant",
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "tn": 39,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sum",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        },
+        {
+          "sample_rows": 10000,
+          "mean_seconds": 1.6486364163380738,
+          "metrics": [
+            {
+              "issue": "leakage",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "redundant",
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "tn": 39,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sum",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        },
+        {
+          "sample_rows": 50000,
+          "mean_seconds": 2.4183492086691936,
+          "metrics": [
+            {
+              "issue": "leakage",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "redundant",
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "tn": 39,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sum",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        },
+        {
+          "sample_rows": 200000,
+          "mean_seconds": 4.017820375331212,
+          "metrics": [
+            {
+              "issue": "leakage",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "redundant",
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "tn": 39,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sum",
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "tn": 42,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        }
+      ],
+      "seconds": 30.4
+    },
+    "E5": {
+      "params": {
+        "seeds": 10,
+        "sizes": [
+          500,
+          2000,
+          10000,
+          50000
+        ],
+        "issues": {
+          "missing_by_group": 0.3,
+          "missing_after": 0.1,
+          "category_variants": 0.003,
+          "sentinels": 0.002,
+          "placeholders": 0.002,
+          "outliers": 0.002
+        }
+      },
+      "results": [
+        {
+          "rows": 500,
+          "metrics": [
+            {
+              "issue": "category_variants",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_temporal",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "outliers",
+              "tp": 20,
+              "fp": 1,
+              "fn": 0,
+              "tn": 89,
+              "precision": 0.9523809523809523,
+              "recall": 1.0,
+              "fpr": 0.011111111111111112,
+              "fnr": 0.0
+            },
+            {
+              "issue": "placeholder",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sentinel",
+              "tp": 0,
+              "fp": 0,
+              "fn": 10,
+              "tn": 100,
+              "precision": NaN,
+              "recall": 0.0,
+              "fpr": 0.0,
+              "fnr": 1.0
+            }
+          ]
+        },
+        {
+          "rows": 2000,
+          "metrics": [
+            {
+              "issue": "category_variants",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_temporal",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "outliers",
+              "tp": 20,
+              "fp": 0,
+              "fn": 0,
+              "tn": 90,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "placeholder",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sentinel",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        },
+        {
+          "rows": 10000,
+          "metrics": [
+            {
+              "issue": "category_variants",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_temporal",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "outliers",
+              "tp": 20,
+              "fp": 3,
+              "fn": 0,
+              "tn": 87,
+              "precision": 0.8695652173913043,
+              "recall": 1.0,
+              "fpr": 0.03333333333333333,
+              "fnr": 0.0
+            },
+            {
+              "issue": "placeholder",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sentinel",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            }
+          ]
+        },
+        {
+          "rows": 50000,
+          "metrics": [
+            {
+              "issue": "category_variants",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_group",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "missing_temporal",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "outliers",
+              "tp": 20,
+              "fp": 3,
+              "fn": 0,
+              "tn": 87,
+              "precision": 0.8695652173913043,
+              "recall": 1.0,
+              "fpr": 0.03333333333333333,
+              "fnr": 0.0
+            },
+            {
+              "issue": "placeholder",
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "tn": 100,
+              "precision": 1.0,
+              "recall": 1.0,
+              "fpr": 0.0,
+              "fnr": 0.0
+            },
+            {
+              "issue": "sentinel",
+              "tp": 10,
+              "fp": 1,
+              "fn": 0,
+              "tn": 99,
+              "precision": 0.9090909090909091,
+              "recall": 1.0,
+              "fpr": 0.01,
+              "fnr": 0.0
+            }
+          ]
+        }
+      ],
+      "seconds": 12.1
+    },
+    "E6": {
+      "params": {
+        "seeds": 20,
+        "sizes": [
+          500,
+          5000
+        ],
+        "shifts": [
+          0.0,
+          0.05,
+          0.1,
+          0.25,
+          0.5
+        ],
+        "note": "shift 0 = false alarm rate"
+      },
+      "results": [
+        {
+          "rows": 500,
+          "shift_log_sd": 0.0,
+          "detection_rate": 0.0
+        },
+        {
+          "rows": 500,
+          "shift_log_sd": 0.05,
+          "detection_rate": 0.0
+        },
+        {
+          "rows": 500,
+          "shift_log_sd": 0.1,
+          "detection_rate": 0.05
+        },
+        {
+          "rows": 500,
+          "shift_log_sd": 0.25,
+          "detection_rate": 0.7
+        },
+        {
+          "rows": 500,
+          "shift_log_sd": 0.5,
+          "detection_rate": 1.0
+        },
+        {
+          "rows": 5000,
+          "shift_log_sd": 0.0,
+          "detection_rate": 0.0
+        },
+        {
+          "rows": 5000,
+          "shift_log_sd": 0.05,
+          "detection_rate": 0.0
+        },
+        {
+          "rows": 5000,
+          "shift_log_sd": 0.1,
+          "detection_rate": 0.0
+        },
+        {
+          "rows": 5000,
+          "shift_log_sd": 0.25,
+          "detection_rate": 0.8
+        },
+        {
+          "rows": 5000,
+          "shift_log_sd": 0.5,
+          "detection_rate": 1.0
+        }
+      ],
+      "seconds": 100.8
+    }
+  }
+}
