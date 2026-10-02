@@ -265,11 +265,12 @@ class MissingnessDetector(BaseDetector):
 
     def _related_numeric(self, ctx: Context, col: str, indicator: pd.Series) -> Finding | None:
         best: tuple[float, str, dict[str, Any]] | None = None
-        miss_mask = indicator.to_numpy()
+        rows = ctx.sample().index
+        miss_mask = indicator.loc[rows].to_numpy()
         for other in ctx.columns_of(ColumnType.NUMERIC):
             if other == col:
                 continue
-            v = ctx.numeric(other).to_numpy()
+            v = ctx.numeric(other).loc[rows].to_numpy()
             a, b = v[miss_mask], v[~miss_mask]
             a, b = a[np.isfinite(a)], b[np.isfinite(b)]
             if a.size < 30 or b.size < 30:
