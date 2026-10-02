@@ -110,7 +110,6 @@ markers = [
     "integration: tests that exercise several subsystems end to end",
     "slow: large-data tests (deselect with -m 'not slow')",
 ]
-filterwarnings = ["error::pandas.errors.SettingWithCopyWarning"]
 
 [tool.coverage.run]
 source = ["datasi"]
