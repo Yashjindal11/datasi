@@ -164,6 +164,11 @@ function DistributionsTab({ report }: { report: Report }) {
       <Panel title="Missing values per column">
         {missItems.length ? <Bars items={missItems} max={1} format={pct} /> : <p className="text-sm text-slate-500">No missing values.</p>}
       </Panel>
+      {report.sections.missingness?.matrix && report.sections.missingness.matrix.columns.length >= 2 && (
+        <Panel title="Missingness co-occurrence (phi between missing indicators)">
+          <Heatmap labels={report.sections.missingness.matrix.columns} matrix={report.sections.missingness.matrix.phi} />
+        </Panel>
+      )}
       <div className="grid gap-4 md:grid-cols-2">
         {Object.entries(report.profiles).map(([col, p]) => {
           if (p.numeric?.count && p.histogram) {

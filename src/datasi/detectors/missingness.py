@@ -321,12 +321,17 @@ class MissingnessDetector(BaseDetector):
             return c
 
         pairs: list[dict[str, Any]] = []
+        matrix: list[list[float | None]] = [
+            [1.0 if i == j else None for j in range(len(cols))] for i in range(len(cols))
+        ]
         for i in range(len(cols)):
             for j in range(i + 1, len(cols)):
                 phi = phi_coefficient(ind[:, i], ind[:, j])
+                matrix[i][j] = matrix[j][i] = phi
                 if phi is not None and phi >= thr:
                     pairs.append({"a": cols[i], "b": cols[j], "phi": phi})
                     parent[find(cols[i])] = find(cols[j])
+        ctx.section("missingness")["matrix"] = {"columns": cols, "phi": matrix}
         clusters: dict[str, list[str]] = {}
         for c in cols:
             if any(c in (p["a"], p["b"]) for p in pairs):

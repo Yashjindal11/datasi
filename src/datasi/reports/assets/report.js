@@ -322,6 +322,12 @@
     var root = el("div");
     if (SEC.missingness) root.appendChild(el("p", { text: fmt(SEC.missingness.missing_cells) + " of " + fmt(SEC.missingness.total_cells) + " cells (" + pct(SEC.missingness.missing_cells / Math.max(SEC.missingness.total_cells, 1)) + ") are missing." }));
     root.appendChild(el("div", { class: "panel" }, items.length ? barChart(items, { max: 1, fmt: pct }) : el("div", { class: "empty", text: "No missing values." })));
+    var mx = SEC.missingness && SEC.missingness.matrix;
+    if (mx && mx.columns.length >= 2) {
+      root.appendChild(el("div", { class: "panel" }, el("h3", { text: "Missingness co-occurrence (phi between missing indicators)" }),
+        heatmap(mx.columns, mx.phi),
+        el("div", { class: "small muted", text: "Dark cells: columns that tend to be missing in the same rows." })));
+    }
     root.appendChild(sectionFindings("missingness"));
     return root;
   }

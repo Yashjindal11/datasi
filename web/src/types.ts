@@ -109,7 +109,12 @@ export interface Report {
   findings: Finding[];
   profiles: Record<string, ColumnProfile>;
   sections: {
-    missingness?: { columns: Record<string, { count: number; ratio: number }>; missing_cells: number; total_cells: number };
+    missingness?: {
+      columns: Record<string, { count: number; ratio: number }>;
+      missing_cells: number;
+      total_cells: number;
+      matrix?: { columns: string[]; phi: (number | null)[][] };
+    };
     temporal?: { time_column: string; period: string; volume: Point[] };
     correlation?: { numeric_columns?: string[]; pearson?: (number | null)[][]; spearman?: (number | null)[][] };
     target?: { column: string; task: string; classes?: { label: string; share: number }[]; feature_scores?: { column: string; score: number | null }[] };
