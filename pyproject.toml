@@ -45,6 +45,7 @@ dev = [
     "types-PyYAML",
     "build>=1.2",
     "pyarrow>=15",
+    "matplotlib>=3.8",
 ]
 
 [project.scripts]
