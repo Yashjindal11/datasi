@@ -33,3 +33,6 @@ src/datasi/server/static/
 .DS_Store
 .idea/
 .vscode/
+
+# Quick (CI) research runs
+benchmarks/results/experiments-quick.json

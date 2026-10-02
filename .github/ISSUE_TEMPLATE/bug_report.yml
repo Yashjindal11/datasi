@@ -1,0 +1,24 @@
+name: Bug report
+description: Something DataSI reports (or misses) is wrong
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: DataSI version
+      description: Output of `datasi --version`
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened and what did you expect?
+      description: For false positives/negatives, include the finding code and its evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Synthetic data or a schema only. Never paste private or personal data.
+      render: python
